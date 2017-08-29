@@ -1,26 +1,31 @@
-# ember-sinon-sandbox
+# Ember-Sinon-Sandbox
 
-This README outlines the details of collaborating on this Ember addon.
+This addon adds automatic sandboxing of sinon to your QUnit tests. This ensures that sinon is correctly isolated and doesn't leak state between test executions.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-sinon-sandbox`
-* `npm install`
+Run either:
 
-## Running
+```
+ember install ember-sinon-sandbox
+```
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+or 
 
-## Running Tests
+```
+npm install --save-dev ember-sinon-sandbox
+```
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+## Usage
 
-## Building
+To use, simply import the setup method from within your `tests/test-helper.js` file and execute it.
 
-* `ember build`
+```js
+import setupSinonSandbox from 'ember-sinon-sandbox/test-support';
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+...
+
+setupSinonSandbox();
+```
+
+This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to QUnit `testStart` and `testDone` respectively.
