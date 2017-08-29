@@ -29,3 +29,17 @@ setupSinonSandbox();
 ```
 
 This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to QUnit `testStart` and `testDone` respectively.
+
+## Contributing
+
+### Installation
+
+* `git clone git@github.com:scalvert/ember-sinon-sandbox.git`
+* `cd ember-sinon-sandbox`
+* `yarn`
+
+### Running Tests
+
+* `yarn test`
+* `ember test`
+* `ember test --server`
