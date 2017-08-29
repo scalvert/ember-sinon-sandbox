@@ -1,3 +1,5 @@
+import QUnit from 'qunit';
+
 const SINON = self.sinon;
 
 export function createSandbox() {

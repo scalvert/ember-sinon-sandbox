@@ -14,6 +14,8 @@ test('stores sandbox created as module property', function(assert) {
 
   assert.ok(sandbox, 'Sandbox is defined in testEnvironment');
   assert.equal(sandbox, self.sinon, 'Sandbox instances on testEnvironment and self are equal');
+
+  restoreSandbox();
 });
 
 test('ensures sandbox is restored correctly', function(assert) {
@@ -39,18 +41,20 @@ test('ensures sandbox instances are different for each test', function(assert) {
 });
 
 test('configuring setup/restore', function(assert) {
-  assert.expect(2);
+  assert.expect(4);
 
   let testStartCalled = false;
   let testDoneCalled = false;
 
   let testEnvironment = {
-    testStart() {
+    testStart(callback) {
       testStartCalled = true;
+      assert.equal(callback, createSandbox);
     },
 
-    testDone() {
+    testDone(callback) {
       testDoneCalled = true;
+      assert.equal(callback, restoreSandbox);
     }
   };
 
