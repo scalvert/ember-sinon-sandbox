@@ -1,4 +1,4 @@
-# Ember-Sinon-Sandbox
+# Ember-Sinon-Sandbox 
 
 This addon adds automatic sandboxing of sinon to your QUnit tests. This ensures that sinon is correctly isolated and doesn't leak state between test executions.
 
