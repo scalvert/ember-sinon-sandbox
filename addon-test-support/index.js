@@ -1,9 +1,25 @@
 import QUnit from 'qunit';
+import { warn }  from '@ember/debug';
 
 const SINON = self.sinon;
 
 export function createSandbox() {
-  QUnit.config.current.testEnvironment.sandbox = self.sinon = SINON.sandbox.create();
+  const sandbox = SINON.sandbox.create();
+  QUnit.config.current.testEnvironment.sandbox = self.sinon = sandbox;
+
+  sandbox.sandbox = {
+    create() {
+      warn(
+        'Explicitly calling `sinon.sandbox.create()` in conjunction with ember-sinon-sandbox is not recommended. Please use `this.sandbox` available in your tests to access sinon.',
+        true,
+        {
+          id: 'ember-sinon-sandbox'
+        }
+      );
+
+      return sandbox;
+    }
+  }
 }
 
 export function restoreSandbox() {
