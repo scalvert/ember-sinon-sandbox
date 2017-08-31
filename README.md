@@ -41,7 +41,7 @@ The `ember-sinon-sandbox` addon converts the global sinon object to a sandbox by
 
 ```js
 test('very important test happening here', function(assert) {
-  const stub = this.sandbox.stub();
+  const spy = this.sandbox.spy();
 
   ...
 });
