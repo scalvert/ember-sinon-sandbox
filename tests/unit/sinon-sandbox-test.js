@@ -18,6 +18,23 @@ test('stores sandbox created as module property', function(assert) {
   restoreSandbox();
 });
 
+test('stubbing out sandbox.create returns the already created sandbox', function(assert) {
+  assert.expect(1);
+
+  createSandbox();
+
+  const sandbox =  QUnit.config.current.testEnvironment.sandbox;
+
+  const createdSandbox = sandbox.sandbox.create();
+
+  // nessessary to do a comparison, as the original sandbox has our extra `sandbox.create()`.
+  delete sandbox.sandbox;
+
+  assert.equal(sandbox, createdSandbox, 'Sandbox created via sandbox.create is the same as the already created sandbox');
+
+  restoreSandbox();
+});
+
 test('ensures sandbox is restored correctly', function(assert) {
   assert.expect(1);
 
