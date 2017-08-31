@@ -1,6 +1,6 @@
 {
   "name": "ember-sinon-sandbox",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Ember addon for ensuring sinon runs isolated in a sandbox for each test.",
   "keywords": [
     "ember-addon"
