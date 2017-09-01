@@ -30,6 +30,30 @@ test('stubbing out sandbox.create returns the already created sandbox', function
   restoreSandbox();
 });
 
+test('using sinon.assert.* methods throws an error', function(assert) {
+  assert.expect(1);
+
+  createSandbox();
+
+  assert.throws(() => {
+    this.sandbox.assert.calledOnce()
+  }, 'sinon.assert methods throw an error');
+
+  restoreSandbox();
+});
+
+test('using sinon.fakeServer.create throws an error', function(assert) {
+  assert.expect(1);
+
+  createSandbox();
+
+  assert.throws(() => {
+    this.sandbox.fakeServer.create()
+  }, 'sandbox.fakeServer.create throws and error');
+
+  restoreSandbox();
+});
+
 test('ensures sandbox is restored correctly', function(assert) {
   assert.expect(1);
 
