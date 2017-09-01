@@ -21,6 +21,17 @@ export function createSandbox() {
     }
   }
 
+  sandbox.__restore = sandbox.restore;
+  sandbox.restore = function() {
+    warn(
+      'Explicitly calling `sinon.sandbox.restore()` in conjunction with ember-sinon-sandbox does not restore the sandbox. Sandboxes are automatically restored after each test.',
+      true,
+      {
+        id: 'ember-sinon-sandbox'
+      }
+    )
+  };
+
   sandbox.assert = {};
   Object.keys(SINON.assert).forEach(assertMethod => {
     sandbox.assert[assertMethod] = function() {
@@ -36,7 +47,7 @@ export function createSandbox() {
 }
 
 export function restoreSandbox() {
-  self.sinon.restore();
+  self.sinon.__restore();
   self.sinon = null;
 }
 
