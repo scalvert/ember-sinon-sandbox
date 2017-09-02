@@ -1,8 +1,8 @@
-# Ember-Sinon-Sandbox 
+# Ember-Sinon-Sandbox
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/scalvert/ember-sinon-sandbox.svg)](https://greenkeeper.io/)
 
-![Build Status](https://travis-ci.org/cibernox/ember-native-dom-helpers.svg?branch=master)
+![Build Status](https://api.travis-ci.org/scalvert/ember-sinon-sandbox.svg?branch=master)
 [![npm version](https://badge.fury.io/js/ember-sinon-sandbox.svg)](https://badge.fury.io/js/ember-sinon-sandbox)
 
 This addon adds automatic sandboxing of sinon to your QUnit tests. This ensures that sinon is correctly isolated and doesn't leak state between test executions.
@@ -15,7 +15,7 @@ Run either:
 ember install ember-sinon-sandbox
 ```
 
-or 
+or
 
 ```
 npm install --save-dev ember-sinon-sandbox
