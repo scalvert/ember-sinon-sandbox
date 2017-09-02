@@ -35,7 +35,7 @@ export function createSandbox() {
   sandbox.assert = {};
   Object.keys(SINON.assert).forEach(assertMethod => {
     sandbox.assert[assertMethod] = function() {
-      throw new Error('The `sinon.assert` API is not avaiable in conjunction with ember-sinon-sandbox. Please use your test framework\'s assert API.');
+      throw new Error('The `sinon.assert` API is not available in conjunction with ember-sinon-sandbox. Please use your test framework\'s assert API.');
     }
   });
 
