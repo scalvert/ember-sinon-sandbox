@@ -1,7 +1,7 @@
 import QUnit, { module, test } from 'qunit';
 import setupSinonSandbox, { createSandbox, restoreSandbox } from 'ember-sinon-sandbox/test-support';
 
-module('Unit | ember-sinon-sandbox');
+module('Unit | ember-sinon-sandbox | With global access');
 
 test('stores sandbox created as module property', function(assert) {
   assert.expect(3);
