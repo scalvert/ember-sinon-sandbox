@@ -4,26 +4,23 @@ import { warn } from '@ember/debug';
 const SINON = self.sinon;
 const REQUIRED_SANDBOX_APIS = ['clock'];
 
-let errorOnGlobalSinonAccess;
-let currentSandbox;
+let errorOnGlobalSinonAccess = false;
 
 export function setOptions(options = {}) {
   errorOnGlobalSinonAccess = !!options.errorOnGlobalSinonAccess;
 }
 
 export function createSandbox() {
-  currentSandbox = SINON.sandbox.create();
+  let sandbox = QUnit.config.current.testEnvironment.sandbox = SINON.sandbox.create();
 
   if (errorOnGlobalSinonAccess) {
     disableSinonGlobal();
   } else {
-    disableSinonGlobalAPIs(currentSandbox);
+    disableSinonGlobalAPIs(sandbox);
   }
 
-  QUnit.config.current.testEnvironment.sandbox = currentSandbox;
-
-  currentSandbox.__restore = currentSandbox.restore;
-  currentSandbox.restore = function() {
+  sandbox.__restore = sandbox.restore;
+  sandbox.restore = function() {
     warn(
       'Explicitly calling `sinon.sandbox.restore()` in conjunction with ember-sinon-sandbox does not restore the sandbox. Sandboxes are automatically restored after each test.',
       true,
@@ -35,12 +32,11 @@ export function createSandbox() {
 }
 
 export function restoreSandbox() {
-  currentSandbox.__restore();
-
-  QUnit.config.current.testEnvironment.sandbox = currentSandbox = null;
+  QUnit.config.current.testEnvironment.sandbox.__restore();
+  QUnit.config.current.testEnvironment.sandbox = null;
 
   if (!errorOnGlobalSinonAccess) {
-    self.sinon = null;
+    Object.defineProperty(self, 'sinon', { value: null });
   }
 }
 
@@ -54,7 +50,7 @@ function disableSinonGlobal() {
 
 function disableSinonGlobalAPIs(sandbox) {
   for (let key in SINON) {
-    if (!sandbox[key] && !REQUIRED_SANDBOX_APIS.includes(key)) {
+    if (!sandbox[key] && !REQUIRED_SANDBOX_APIS.indexOf(key) > -1) {
       if (key === 'sandbox') {
         sandbox.sandbox = {
           create() {
@@ -73,20 +69,22 @@ function disableSinonGlobalAPIs(sandbox) {
       else {
         Object.defineProperty(sandbox, key, {
           get() {
-            throw new Error(`The sinon.${key} API is not available in conjunction with ember-sinon-sandbox.`);
+            throw new Error(`The sinon.${key} API is not available when using ember-sinon-sandbox.`);
           }
         })
       }
     }
   }
 
-  self.sinon = sandbox;
+  Object.defineProperty(self, 'sinon', { value: sandbox });
 
   return sandbox;
 }
 
-export default function setupSinonSandbox(testEnvironment = QUnit, options = {}) {
+export default function setupSinonSandbox(options = {}) {
   setOptions(options);
+
+  let testEnvironment = options.QUnit || self.QUnit;
 
   testEnvironment.testStart(createSandbox);
   testEnvironment.testDone(restoreSandbox);

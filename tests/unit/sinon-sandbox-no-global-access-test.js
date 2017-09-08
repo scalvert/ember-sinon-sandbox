@@ -1,18 +1,19 @@
+/* global sinon */
 import { module, test } from 'qunit';
 import setupSinonSandbox, { createSandbox, restoreSandbox, setOptions } from 'ember-sinon-sandbox/test-support';
 
 module('Unit | ember-sinon-sandbox | No global access', {
-  beforeEach() {
+  before() {
     setOptions({ errorOnGlobalSinonAccess: true });
   },
 
-  afterEach() {
+  after() {
     setOptions({ errorOnGlobalSinonAccess: false });
   }
 });
 
 test('errors when accessing the sinon global', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   createSandbox();
 
@@ -20,6 +21,10 @@ test('errors when accessing the sinon global', function(assert) {
     let sinon = self.sinon;
     sinon.spy();
   }, 'self.sinon is not available');
+
+  assert.throws(() => {
+    sinon.spy();
+  }, 'sinon is not available');
 
   restoreSandbox();
 });
@@ -93,19 +98,22 @@ test('configuring setup/restore', function(assert) {
   let testStartCalled = false;
   let testDoneCalled = false;
 
-  let testEnvironment = {
-    testStart(callback) {
-      testStartCalled = true;
-      assert.equal(callback, createSandbox);
-    },
+  let options = {
+    QUnit: {
+      testStart(callback) {
+        testStartCalled = true;
+        assert.equal(callback, createSandbox);
+      },
 
-    testDone(callback) {
-      testDoneCalled = true;
-      assert.equal(callback, restoreSandbox);
-    }
+      testDone(callback) {
+        testDoneCalled = true;
+        assert.equal(callback, restoreSandbox);
+      }
+    },
+    errorOnGlobalSinonAccess: true
   };
 
-  setupSinonSandbox(testEnvironment, { errorOnGlobalSinonAccess: true });
+  setupSinonSandbox(options);
 
   assert.ok(testStartCalled, 'testEnvironment.testStart is called');
   assert.ok(testDoneCalled, 'testEnvironment.testDone is called');

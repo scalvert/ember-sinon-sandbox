@@ -1,7 +1,15 @@
 import QUnit, { module, test } from 'qunit';
-import setupSinonSandbox, { createSandbox, restoreSandbox } from 'ember-sinon-sandbox/test-support';
+import setupSinonSandbox, { createSandbox, restoreSandbox, setOptions } from 'ember-sinon-sandbox/test-support';
 
-module('Unit | ember-sinon-sandbox | With global access');
+module('Unit | ember-sinon-sandbox | With global access', {
+  before() {
+    setOptions({ errorOnGlobalSinonAccess: false });
+  },
+
+  after() {
+    setOptions({ errorOnGlobalSinonAccess: true });
+  }
+});
 
 test('stores sandbox created as module property', function(assert) {
   assert.expect(3);
@@ -98,19 +106,23 @@ test('configuring setup/restore', function(assert) {
   let testStartCalled = false;
   let testDoneCalled = false;
 
-  let testEnvironment = {
-    testStart(callback) {
-      testStartCalled = true;
-      assert.equal(callback, createSandbox);
-    },
 
-    testDone(callback) {
-      testDoneCalled = true;
-      assert.equal(callback, restoreSandbox);
-    }
+  let options = {
+    QUnit: {
+      testStart(callback) {
+        testStartCalled = true;
+        assert.equal(callback, createSandbox);
+      },
+
+      testDone(callback) {
+        testDoneCalled = true;
+        assert.equal(callback, restoreSandbox);
+      }
+    },
+    errorOnGlobalSinonAccess: false
   };
 
-  setupSinonSandbox(testEnvironment);
+  setupSinonSandbox(options);
 
   assert.ok(testStartCalled, 'testEnvironment.testStart is called');
   assert.ok(testDoneCalled, 'testEnvironment.testDone is called');
