@@ -43,7 +43,7 @@ export function restoreSandbox() {
 function disableSinonGlobal() {
   Object.defineProperty(self, 'sinon', {
     get() {
-      throw new Error('Sinon is not available globally because it has been disabled by setting `disableGlobalSinon` to `true` when setting up ember-sinon-sandbox.')
+      throw new Error('Sinon is not available globally because it has been disabled by setting `disableGlobalSinon` to `true` when setting up ember-sinon-sandbox. https://git.io/v56JW')
     }
   });
 }
