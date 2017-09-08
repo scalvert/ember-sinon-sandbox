@@ -30,10 +30,16 @@ import setupSinonSandbox from 'ember-sinon-sandbox/test-support';
 
 ...
 
-setupSinonSandbox();
+setupSinonSandbox(options);
 ```
 
 This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to QUnit `testStart` and `testDone` respectively.
+
+### Options
+
+`errorOnGlobalSinonAccess` (optional) - bool
+
+When set to `true`, it disables the use of the global `sinon` object. This ensures the use of a sandboxed version of `sinon` when in tests. 
 
 ### Accessing Sinon from Within Tests
 
