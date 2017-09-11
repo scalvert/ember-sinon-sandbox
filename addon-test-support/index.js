@@ -50,7 +50,7 @@ function disableSinonGlobal() {
 
 function disableSinonGlobalAPIs(sandbox) {
   for (let key in SINON) {
-    if (!sandbox[key] && !REQUIRED_SANDBOX_APIS.indexOf(key) > -1) {
+    if (!sandbox[key] && REQUIRED_SANDBOX_APIS.indexOf(key) === -1) {
       if (key === 'sandbox') {
         sandbox.sandbox = {
           create() {
