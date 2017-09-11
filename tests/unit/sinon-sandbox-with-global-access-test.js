@@ -54,6 +54,18 @@ test('calling `sinon.sandbox.restore()` noops to ensure restoration is controlle
   restoreSandbox();
 });
 
+test('using useFakeTimers API continues to work', function(assert) {
+  assert.expect(1);
+
+  createSandbox();
+
+  let clock = this.sandbox.useFakeTimers();
+
+  assert.ok(clock, 'The clock API continues to work after forced sandboxing.');
+
+  restoreSandbox();
+});
+
 test('using sinon.assert.* methods throws an error', function(assert) {
   assert.expect(1);
 
