@@ -57,6 +57,28 @@ test('using useFakeTimers API continues to work', function(assert) {
   restoreSandbox();
 });
 
+test('using useFakeXMLHttpRequest API continues to work', function(assert) {
+  assert.expect(1);
+
+  let requests = [];
+
+  createSandbox();
+
+  let fakeXHR = this.sandbox.useFakeXMLHttpRequest();
+  fakeXHR.onCreate = (req) => {
+    requests.push(req);
+  };
+
+  let xhr = new XMLHttpRequest();
+  xhr.addEventListener("load", () => {});
+  xhr.open("GET", "http://www.example.org/example.txt");
+  xhr.send();
+
+  assert.equal(requests.length, 1, 'The fake XHR API continues to work after forced sandboxing.');
+
+  restoreSandbox();
+});
+
 test('using sinon.assert.* methods throw an error when `errorOnGlobalSinonAccess`', function(assert) {
   assert.expect(1);
 
