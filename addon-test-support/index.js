@@ -10,8 +10,16 @@ export function setOptions(options = {}) {
   errorOnGlobalSinonAccess = !!options.errorOnGlobalSinonAccess;
 }
 
+export function setup() {
+  let currentTest = QUnit.config.current;
+
+  currentTest.module.hooks.beforeEach.push(createSandbox);
+  currentTest.module.hooks.afterEach.push(restoreSandbox);
+}
+
 export function createSandbox() {
-  let sandbox = QUnit.config.current.testEnvironment.sandbox = SINON.sandbox.create();
+  let currentTest = QUnit.config.current;
+  let sandbox = currentTest.testEnvironment.sandbox = SINON.sandbox.create();
 
   if (errorOnGlobalSinonAccess) {
     disableSinonGlobal();
@@ -86,6 +94,5 @@ export default function setupSinonSandbox(options = {}) {
 
   let testEnvironment = options.QUnit || self.QUnit;
 
-  testEnvironment.testStart(createSandbox);
-  testEnvironment.testDone(restoreSandbox);
+  testEnvironment.testStart(setup);
 }
