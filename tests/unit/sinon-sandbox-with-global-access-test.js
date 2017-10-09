@@ -38,7 +38,7 @@ test('stubbing out sandbox.create returns the already created sandbox', function
   restoreSandbox();
 });
 
-test('calling `sinon.sandbox.restore()` noops to ensure restoration is controlled', function(assert) {
+test('calling `sinon.sandbox.restore()` can be called explicitly and via `restoreSandbox`', function(assert) {
   assert.expect(2);
 
   createSandbox();
@@ -49,7 +49,7 @@ test('calling `sinon.sandbox.restore()` noops to ensure restoration is controlle
 
   this.sandbox.restore();
 
-  assert.equal(this.sandbox.fakes.length, 1);
+  assert.equal(this.sandbox.fakes.length, 0);
 
   restoreSandbox();
 });
