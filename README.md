@@ -25,8 +25,8 @@ npm install --save-dev ember-sinon-sandbox
 
 The `ember-sinon-sandbox` addon supports two different API versions:
 
-1. The classic API, which automatically wires up sandbox creation to `QUnit.testStart` and `QUnit.testDone` respectively
-1. The new QUnit hooks API, which takes a `hooks` object and wires up sandbox creation to `beforeEach` and `afterEach` of the module.
+1. The classic API, which automatically wires up sandbox creation and restoration to `QUnit.testStart` and `QUnit.testDone` respectively
+1. The new QUnit hooks API, which takes a `hooks` object and wires up sandbox creation and restoration to `beforeEach` and `afterEach` of the module.
 
 ### Classic API
 
