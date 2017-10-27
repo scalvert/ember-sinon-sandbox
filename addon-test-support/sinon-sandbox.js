@@ -71,12 +71,3 @@ function disableSinonGlobalAPIs(sandbox) {
 
   return sandbox;
 }
-
-export default function setupSinonSandbox(options = {}) {
-  setOptions(options);
-
-  let testEnvironment = options.QUnit || self.QUnit;
-
-  testEnvironment.testStart(createSandbox);
-  testEnvironment.testDone(restoreSandbox);
-}

@@ -1,5 +1,5 @@
 import QUnit, { module, test } from 'qunit';
-import setupSinonSandbox, { createSandbox, restoreSandbox, setOptions } from 'ember-sinon-sandbox/test-support';
+import { createSandbox, restoreSandbox, setOptions } from 'ember-sinon-sandbox/test-support/sinon-sandbox';
 
 module('Unit | ember-sinon-sandbox | With global access', {
   before() {
@@ -132,32 +132,4 @@ test('ensures sandbox instances are different for each test', function(assert) {
     previousSandbox = Object.assign({}, self.sinon);
     restoreSandbox();
   }
-});
-
-test('configuring setup/restore', function(assert) {
-  assert.expect(4);
-
-  let testStartCalled = false;
-  let testDoneCalled = false;
-
-
-  let options = {
-    QUnit: {
-      testStart(callback) {
-        testStartCalled = true;
-        assert.equal(callback, createSandbox);
-      },
-
-      testDone(callback) {
-        testDoneCalled = true;
-        assert.equal(callback, restoreSandbox);
-      }
-    },
-    errorOnGlobalSinonAccess: false
-  };
-
-  setupSinonSandbox(options);
-
-  assert.ok(testStartCalled, 'testEnvironment.testStart is called');
-  assert.ok(testDoneCalled, 'testEnvironment.testDone is called');
 });
