@@ -1,4 +1,4 @@
-import { createSandbox, restoreSandbox } from 'ember-sinon-sandbox/test-support/sinon-sandbox';
+import { createSandbox, restoreSandbox } from './sinon-sandbox';
 
 /**
  * Allows for creating and restoring a sinon sandbox per test. Uses the *new*
