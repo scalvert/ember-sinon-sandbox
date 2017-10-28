@@ -71,7 +71,7 @@ import setupSinonSandbox from 'ember-sinon-sandbox/test-support';
 
 ...
 
-module('my module', {
+module('my module', function(hooks) {
   setupSinonSandbox(hooks);
 
   test('my test', function(assert) {
