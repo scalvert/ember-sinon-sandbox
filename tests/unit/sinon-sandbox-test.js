@@ -5,83 +5,83 @@ import { createSandbox, restoreSandbox, setOptions } from 'ember-sinon-sandbox/t
   true,
   false
 ].forEach((errorOnGlobalSinonAccess) => {
-  module(`Unit | ember-sinon-sandbox | With errorOnGlobalSinonAccess ${errorOnGlobalSinonAccess}`, {
-    before() {
+  module(`Unit | ember-sinon-sandbox | With errorOnGlobalSinonAccess ${errorOnGlobalSinonAccess}`, function(hooks) {
+    hooks.before(function() {
       setOptions({ errorOnGlobalSinonAccess });
-    }
-  });
+    });
 
-  test('calling `sinon.sandbox.restore()` can be called explicitly and via `restoreSandbox`', function(assert) {
-    assert.expect(2);
+    test('calling `sinon.sandbox.restore()` can be called explicitly and via `restoreSandbox`', function(assert) {
+      assert.expect(2);
 
-    createSandbox();
+      createSandbox();
 
-    this.sandbox.spy();
+      this.sandbox.spy();
 
-    assert.equal(this.sandbox.fakes.length, 1);
+      assert.equal(this.sandbox.fakes.length, 1);
 
-    this.sandbox.restore();
+      this.sandbox.restore();
 
-    assert.equal(this.sandbox.fakes.length, 0);
+      assert.equal(this.sandbox.fakes.length, 0);
 
-    restoreSandbox();
-  });
+      restoreSandbox();
+    });
 
-  test('using useFakeTimers API continues to work', function(assert) {
-    assert.expect(1);
+    test('using useFakeTimers API continues to work', function(assert) {
+      assert.expect(1);
 
-    createSandbox();
+      createSandbox();
 
-    let clock = this.sandbox.useFakeTimers();
+      let clock = this.sandbox.useFakeTimers();
 
-    assert.ok(clock, 'The clock API continues to work after forced sandboxing.');
+      assert.ok(clock, 'The clock API continues to work after forced sandboxing.');
 
-    restoreSandbox();
-  });
+      restoreSandbox();
+    });
 
-  test('using useFakeXMLHttpRequest API continues to work', function(assert) {
-    assert.expect(1);
+    test('using useFakeXMLHttpRequest API continues to work', function(assert) {
+      assert.expect(1);
 
-    let requests = [];
+      let requests = [];
 
-    createSandbox();
+      createSandbox();
 
-    let fakeXHR = this.sandbox.useFakeXMLHttpRequest();
-    fakeXHR.onCreate = (req) => {
-      requests.push(req);
-    };
+      let fakeXHR = this.sandbox.useFakeXMLHttpRequest();
+      fakeXHR.onCreate = (req) => {
+        requests.push(req);
+      };
 
-    let xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", () => {});
-    xhr.open("GET", "http://www.example.org/example.txt");
-    xhr.send();
+      let xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", () => {});
+      xhr.open("GET", "http://www.example.org/example.txt");
+      xhr.send();
 
-    assert.equal(requests.length, 1, 'The fake XHR API continues to work after forced sandboxing.');
+      assert.equal(requests.length, 1, 'The fake XHR API continues to work after forced sandboxing.');
 
-    restoreSandbox();
-  });
+      restoreSandbox();
+    });
 
-  test('using sinon.assert.* methods throws an error', function(assert) {
-    assert.expect(1);
+    test('using sinon.assert.* methods throws an error', function(assert) {
+      assert.expect(1);
 
-    createSandbox();
+      createSandbox();
 
-    assert.throws(() => {
-      this.sandbox.assert.calledOnce()
-    }, 'sinon.assert methods throw an error');
+      assert.throws(() => {
+        this.sandbox.assert.calledOnce()
+      }, 'sinon.assert methods throw an error');
 
-    restoreSandbox();
-  });
+      restoreSandbox();
+    });
 
-  test('using sinon.fakeServer.create throws an error', function(assert) {
-    assert.expect(1);
+    test('using sinon.fakeServer.create throws an error', function(assert) {
+      assert.expect(1);
 
-    createSandbox();
+      createSandbox();
 
-    assert.throws(() => {
-      this.sandbox.fakeServer.create()
-    }, 'sandbox.fakeServer.create throws and error');
+      assert.throws(() => {
+        this.sandbox.fakeServer.create()
+      }, 'sandbox.fakeServer.create throws and error');
 
-    restoreSandbox();
+      restoreSandbox();
+    });
   });
 });
