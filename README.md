@@ -23,10 +23,17 @@ npm install --save-dev ember-sinon-sandbox
 
 ## Usage
 
-To use, simply import the setup method from within your `tests/test-helper.js` file and execute it.
+The `ember-sinon-sandbox` addon supports two different API versions:
+
+1. The classic API, which automatically wires up sandbox creation and restoration to `QUnit.testStart` and `QUnit.testDone` respectively
+1. The new QUnit hooks API, which takes a `hooks` object and wires up sandbox creation and restoration to `beforeEach` and `afterEach` of the module.
+
+### Classic API
+
+To use, import the setup method from within your `tests/test-helper.js` file and execute it.
 
 ```js
-import setupSinonSandbox from 'ember-sinon-sandbox/test-support';
+import setupSinonSandbox from 'ember-sinon-sandbox/test-support/setup-global-sinon-sandbox';
 
 ...
 
@@ -35,7 +42,7 @@ setupSinonSandbox(options);
 
 This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to QUnit `testStart` and `testDone` respectively.
 
-### Options
+#### Options
 
 `errorOnGlobalSinonAccess` (optional) - bool
 
@@ -54,6 +61,26 @@ test('very important test happening here', function(assert) {
 ```
 
 Both the global sinon object and the `this.sandbox` convenience property point to the same, test-specific instance of a sinon sandbox.
+
+### QUnit `hooks` API
+
+To use, import the setup method from within your test file and execute it.
+
+```js
+import setupSinonSandbox from 'ember-sinon-sandbox/test-support';
+
+...
+
+module('my module', function(hooks) {
+  setupSinonSandbox(hooks);
+
+  test('my test', function(assert) {
+    ...
+  })
+})
+```
+
+This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to the module's `beforeEach` and `afterEach` respectively.
 
 ### Incremental Migration
 
