@@ -48,20 +48,6 @@ This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.
 
 When set to `true`, it disables the use of the global `sinon` object. This ensures the use of a sandboxed version of `sinon` when in tests. 
 
-### Accessing Sinon from Within Tests
-
-The `ember-sinon-sandbox` addon converts the global sinon object to a sandbox by default for each test. Additionally, in your tests you will be able to access the same sandboxed version of sinon via the `this.sandbox` property available within the test's scope:
-
-```js
-test('very important test happening here', function(assert) {
-  const spy = this.sandbox.spy();
-
-  ...
-});
-```
-
-Both the global sinon object and the `this.sandbox` convenience property point to the same, test-specific instance of a sinon sandbox.
-
 ### QUnit `hooks` API
 
 To use, import the setup method from within your test file and execute it.
@@ -81,6 +67,20 @@ module('my module', function(hooks) {
 ```
 
 This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to the module's `beforeEach` and `afterEach` respectively.
+
+### Accessing Sinon from Within Tests
+
+The `ember-sinon-sandbox` addon converts the global sinon object to a sandbox by default for each test. Additionally, in your tests you will be able to access the same sandboxed version of sinon via the `this.sandbox` property available within the test's scope:
+
+```js
+test('very important test happening here', function(assert) {
+  const spy = this.sandbox.spy();
+
+  ...
+});
+```
+
+Both the global sinon object and the `this.sandbox` convenience property point to the same, test-specific instance of a sinon sandbox.
 
 ### Incremental Migration
 
