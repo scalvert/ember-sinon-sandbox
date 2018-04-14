@@ -1,5 +1,9 @@
 import QUnit, { module, test } from 'qunit';
-import { createSandbox, restoreSandbox, setOptions } from 'ember-sinon-sandbox/test-support/sinon-sandbox';
+import {
+  createSandbox,
+  restoreSandbox,
+  setOptions
+} from 'ember-sinon-sandbox/test-support/sinon-sandbox';
 
 module('Unit | ember-sinon-sandbox | With global access', function(hooks) {
   hooks.before(function() {

@@ -1,4 +1,8 @@
-import { setOptions, createSandbox, restoreSandbox } from './sinon-sandbox';
+import {
+  setOptions,
+  createSandbox,
+  restoreSandbox
+} from './sinon-sandbox';
 
 /**
  * Allows for creating and restoring a global sinon sandbox per test. This is
