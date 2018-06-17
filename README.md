@@ -53,7 +53,7 @@ When set to `true`, it disables the use of the global `sinon` object. This ensur
 To use, import the setup method from within your test file and execute it.
 
 ```js
-import setupSinonSandbox from 'ember-sinon-sandbox/test-support';
+import { setupSinonSandbox } from 'ember-sinon-sandbox/test-support';
 
 ...
 
