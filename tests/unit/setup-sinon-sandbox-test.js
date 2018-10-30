@@ -32,3 +32,15 @@ module('Unit | ember-sinon-sandbox | With global access', function() {
     });
   });
 });
+
+module('Unit | ember-sinon-sandbox | Validates helper with hooks', function(hooks) {
+  setupSinonSandbox(hooks);
+
+  hooks.beforeEach(function(assert) {
+    assert.ok(this.sandbox);
+  });
+
+  test('Fake testies', function(assert) {
+    assert.expect(1);
+  })
+});
