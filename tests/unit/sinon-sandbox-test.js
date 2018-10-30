@@ -17,15 +17,18 @@ import {
     test('calling `sinon.sandbox.restore()` can be called explicitly and via `restoreSandbox`', function(assert) {
       assert.expect(2);
 
+      const foo = () => true;
+      const bar = { foo };
+
       createSandbox();
 
-      this.sandbox.spy();
+      this.sandbox.stub(bar, 'foo');
 
-      assert.equal(this.sandbox.fakes.length, 1);
+      assert.notEqual(bar.foo, foo);
 
       this.sandbox.restore();
 
-      assert.equal(this.sandbox.fakes.length, 0);
+      assert.equal(bar.foo, foo);
 
       restoreSandbox();
     });
