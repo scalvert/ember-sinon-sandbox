@@ -1,7 +1,5 @@
 # Ember-Sinon-Sandbox
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/scalvert/ember-sinon-sandbox.svg)](https://greenkeeper.io/)
-
 ![Build Status](https://api.travis-ci.org/scalvert/ember-sinon-sandbox.svg?branch=master)
 [![npm version](https://badge.fury.io/js/ember-sinon-sandbox.svg)](https://badge.fury.io/js/ember-sinon-sandbox)
 
