@@ -1,4 +1,4 @@
-# Ember-Sinon-Sandbox
+# ember-sinon-sandbox
 
 ![Build Status](https://api.travis-ci.org/scalvert/ember-sinon-sandbox.svg?branch=master)
 [![npm version](https://badge.fury.io/js/ember-sinon-sandbox.svg)](https://badge.fury.io/js/ember-sinon-sandbox)
