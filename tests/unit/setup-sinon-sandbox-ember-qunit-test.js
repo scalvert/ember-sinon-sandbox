@@ -10,7 +10,7 @@ module('Unit | ember-sinon-sandbox | Validates helper with hooks', function(hook
     assert.ok(this.sandbox);
   });
 
-  test('Fake testies', function(assert) {
+  test('Fake test name', function(assert) {
     assert.expect(1);
   })
 });

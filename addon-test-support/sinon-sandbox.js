@@ -11,7 +11,8 @@ export function setOptions(options = {}) {
 }
 
 export function createSandbox() {
-  let sandbox = QUnit.config.current.testEnvironment.sandbox = SINON.sandbox.create();
+  let create = typeof SINON.createSandbox === 'function' ? SINON.createSandbox : SINON.sandbox.create;
+  let sandbox = QUnit.config.current.testEnvironment.sandbox = create();
 
   if (errorOnGlobalSinonAccess) {
     disableSinonGlobal();
@@ -41,23 +42,23 @@ function disableSinonGlobal() {
 
 function disableSinonGlobalAPIs(sandbox) {
   for (let key in SINON) {
+
     if (!sandbox[key] && REQUIRED_SANDBOX_APIS.indexOf(key) === -1) {
-      if (key === 'sandbox') {
+      if (key === 'createSandbox') {
+        sandbox.createSandbox = function() {
+          warnOnUsage('sinon.createSandbox');
+
+          return sandbox;
+        }
+      } else if (key === 'sandbox') {
         sandbox.sandbox = {
           create() {
-            warn(
-              'Explicitly calling `sinon.sandbox.create()` in conjunction with ember-sinon-sandbox is not recommended. Please use `this.sandbox` available in your tests to access sinon.',
-              true,
-              {
-                id: 'ember-sinon-sandbox'
-              }
-            );
+            warnOnUsage('sinon.sandbox.create');
 
             return sandbox;
           }
         }
-      }
-      else {
+      } else {
         Object.defineProperty(sandbox, key, {
           get() {
             throw new Error(`The sinon.${key} API is not available when using ember-sinon-sandbox.`);
@@ -70,4 +71,14 @@ function disableSinonGlobalAPIs(sandbox) {
   Object.defineProperty(self, 'sinon', { value: sandbox });
 
   return sandbox;
+}
+
+function warnOnUsage(method) {
+  warn(
+    `Explicitly calling '${method}()' in conjunction with ember-sinon-sandbox is not recommended. Please use 'this.sandbox' available in your tests to access sinon.`,
+    true,
+    {
+      id: 'ember-sinon-sandbox'
+    }
+  );
 }
