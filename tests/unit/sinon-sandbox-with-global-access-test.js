@@ -37,6 +37,18 @@ module('Unit | ember-sinon-sandbox | With global access', function(hooks) {
     restoreSandbox();
   });
 
+  test('stubbing out sandbox.createSandbox returns the already created sandbox', function(assert) {
+    assert.expect(1);
+
+    createSandbox();
+
+    const createdSandbox = this.sandbox.createSandbox();
+
+    assert.equal(this.sandbox, createdSandbox, 'Sandbox created via sandbox.createSandbox is the same as the already created sandbox');
+
+    restoreSandbox();
+  });
+
   test('ensures sandbox is restored correctly', function(assert) {
     assert.expect(2);
 
