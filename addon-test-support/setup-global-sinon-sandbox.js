@@ -1,8 +1,4 @@
-import {
-  setOptions,
-  createSandbox,
-  restoreSandbox
-} from './sinon-sandbox';
+import { createSandbox, restoreSandbox } from './sinon-sandbox';
 
 /**
  * Allows for creating and restoring a global sinon sandbox per test. This is
@@ -18,8 +14,6 @@ import {
  * @public
  */
 export default function setupSinonSandbox(options = {}) {
-  setOptions(options);
-
   let testEnvironment = options.QUnit || self.QUnit;
 
   testEnvironment.testStart(createSandbox);

@@ -7,16 +7,10 @@ This addon adds automatic sandboxing of sinon to your QUnit tests. This ensures 
 
 ## Installation
 
-Run either:
+Run:
 
 ```
 ember install ember-sinon-sandbox
-```
-
-or
-
-```
-npm install --save-dev ember-sinon-sandbox
 ```
 
 ## Usage
@@ -40,12 +34,6 @@ setupSinonSandbox(options);
 
 This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to QUnit `testStart` and `testDone` respectively.
 
-#### Options
-
-`errorOnGlobalSinonAccess` (optional) - bool
-
-When set to `true`, it disables the use of the global `sinon` object. This ensures the use of a sandboxed version of `sinon` when in tests. 
-
 ### QUnit `hooks` API
 
 To use, import the setup method from within your test file and execute it.
@@ -64,11 +52,11 @@ module('my module', function(hooks) {
 })
 ```
 
-This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to the module's `beforeEach` and `afterEach` respectively.
+This will automatically wire-up the sandbox `sinon.createSandbox` and `sandbox.restore` methods to the module's `beforeEach` and `afterEach` respectively.
 
 ### Accessing Sinon from Within Tests
 
-The `ember-sinon-sandbox` addon converts the global sinon object to a sandbox by default for each test. Additionally, in your tests you will be able to access the same sandboxed version of sinon via the `this.sandbox` property available within the test's scope:
+In each test you will be able to access the same sandboxed version of sinon via the `this.sandbox` property available within the test's scope:
 
 ```js
 test('very important test happening here', function(assert) {
@@ -96,12 +84,12 @@ test('another equally important test', function(assert) {
 
 ### Installation
 
-* `git clone git@github.com:scalvert/ember-sinon-sandbox.git`
-* `cd ember-sinon-sandbox`
-* `yarn`
+- `git clone git@github.com:scalvert/ember-sinon-sandbox.git`
+- `cd ember-sinon-sandbox`
+- `yarn`
 
 ### Running Tests
 
-* `yarn test`
-* `ember test`
-* `ember test --server`
+- `yarn test`
+- `ember test`
+- `ember test --server`
