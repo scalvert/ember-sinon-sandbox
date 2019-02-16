@@ -12,21 +12,19 @@ module('Unit | ember-sinon-sandbox | Setup in testStart/testDone', function() {
     let testStartCalled = false;
     let testDoneCalled = false;
 
-    let options = {
-      QUnit: {
-        testStart(callback) {
-          testStartCalled = true;
-          assert.equal(callback, createSandbox);
-        },
+    let qunit = {
+      testStart(callback) {
+        testStartCalled = true;
+        assert.equal(callback, createSandbox);
+      },
 
-        testDone(callback) {
-          testDoneCalled = true;
-          assert.equal(callback, restoreSandbox);
-        },
+      testDone(callback) {
+        testDoneCalled = true;
+        assert.equal(callback, restoreSandbox);
       },
     };
 
-    setupSinonSandbox(options);
+    setupSinonSandbox(qunit);
 
     assert.ok(testStartCalled, 'testEnvironment.testStart is called');
     assert.ok(testDoneCalled, 'testEnvironment.testDone is called');
