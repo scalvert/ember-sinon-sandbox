@@ -29,7 +29,7 @@ import setupSinonSandbox from 'ember-sinon-sandbox/test-support/setup-global-sin
 
 ...
 
-setupSinonSandbox(options);
+setupSinonSandbox();
 ```
 
 This will automatically wire-up the sandbox `sinon.sandbox.create` and `sandbox.restore` methods to QUnit `testStart` and `testDone` respectively.
