@@ -1,5 +1,8 @@
 # ember-sinon-sandbox
 
+| **This package has been deprecated**: Please use [ember-sinon-sinoff](https://github.com/scalvert/ember-sinon-sinoff). |
+| --- |
+
 ![Build Status](https://api.travis-ci.org/scalvert/ember-sinon-sandbox.svg?branch=master)
 [![npm version](https://badge.fury.io/js/ember-sinon-sandbox.svg)](https://badge.fury.io/js/ember-sinon-sandbox)
 
