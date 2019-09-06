@@ -1,6 +1,6 @@
 # ember-sinon-sandbox
 
-| **This package has been deprecated**: Please use [ember-sinon-sinoff](https://github.com/scalvert/ember-sinon-sinoff). |
+| **This package has been deprecated**: Please use [ember-sinon-qunit](https://jhawk.co/ember-sinon-qunit). |
 | --- |
 
 ![Build Status](https://api.travis-ci.org/scalvert/ember-sinon-sandbox.svg?branch=master)
